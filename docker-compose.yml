@@ -1,0 +1,11 @@
+version: '3'
+
+services:
+    plant-service:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./plant-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        ports:
+            - "3000:3000"
+        command: "sh -c 'echo plant service starting npm installation && npm install && echo plant service npm installation done && npm run watch'"
