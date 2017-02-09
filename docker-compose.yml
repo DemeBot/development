@@ -16,7 +16,7 @@ services:
             - ./angular-client/:/usr/src/app/
         working_dir: /usr/src/app/
         ports:
-            - "3000:3000"
-        command: "sh -c 'npm start'
+            - "4200:4200"
+        command: "sh -c 'npm start'"
 
 
