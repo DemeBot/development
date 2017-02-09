@@ -18,6 +18,11 @@ git submodule update --init
 git submodule foreach npm install
 docker-compose up
 ```
+After a few minutes of startup time, the system elements should be available at:
+```
+plant service : plant.YOUR_COMPUTER
+angular client : ui.YOUR_COMPUTER
+```
 
 ### Checking for updates recursively
 ```bash
