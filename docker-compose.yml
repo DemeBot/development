@@ -6,17 +6,30 @@ services:
         volumes:
             - ./plant-service/:/usr/src/app/
         working_dir: /usr/src/app/
-        ports:
-            - "3000:3000"
         command: "sh -c 'npm run watch'"
+        ports:
+            - "3000"
+        environment:
+            - VIRTUAL_HOST=plant.*
+            - VIRTUAL_PORT=3000
 
     angular-client:
         image: node:7.5.0-alpine
         volumes:
             - ./angular-client/:/usr/src/app/
         working_dir: /usr/src/app/
-        ports:
-            - "4200:4200"
         command: "sh -c 'npm start'"
-
-
+        ports:
+            - "4200"
+        environment:
+            - VIRTUAL_HOST=ui.*
+            - VIRTUAL_PORT=4200
+    
+    proxy:
+        image: jwilder/nginx-proxy
+        ports:
+            - "80:80"
+        volumes:
+            - /var/run/docker.sock:/tmp/docker.sock:ro
+        environment:
+            - DEFAULT_HOST=0.0.0.0
