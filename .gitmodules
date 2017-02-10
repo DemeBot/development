@@ -1,0 +1,6 @@
+[submodule "angular-client"]
+	path = angular-client
+	url = https://github.com/DemeBot/angular-client.git
+[submodule "plant-service"]
+	path = plant-service
+	url = https://github.com/DemeBot/plant-service.git
