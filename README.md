@@ -15,6 +15,7 @@ npm -v # Developed on: 4.1.2
 ```terminal
 git clone https://github.com/DemeBot/development.git && cd development
 git submodule update --init
+git submodule foreach git checkout master
 git submodule foreach npm install
 docker-compose up
 ```
