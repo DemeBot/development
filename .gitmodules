@@ -1,6 +1,0 @@
-[submodule "plant-service"]
-	path = plant-service
-	url = git@github.com:DemeBot/plant-service.git
-[submodule "angular-client"]
-	path = angular-client
-	url = git@github.com:DemeBot/angular-client.git
