@@ -4,3 +4,6 @@
 [submodule "plant-service"]
 	path = plant-service
 	url = https://github.com/DemeBot/plant-service.git
+[submodule "gateway"]
+	path = gateway
+	url = https://github.com/DemeBot/gateway.git
