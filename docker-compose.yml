@@ -9,9 +9,6 @@ services:
         command: "sh -c 'npm run watch'"
         ports:
             - "3000"
-        environment:
-            - VIRTUAL_HOST=plant.*
-            - VIRTUAL_PORT=3000
 
     angular-client:
         image: node:7.5.0-alpine
@@ -21,15 +18,15 @@ services:
         command: "sh -c 'npm start'"
         ports:
             - "4200"
-        environment:
-            - VIRTUAL_HOST=ui.*
-            - VIRTUAL_PORT=4200
     
-    proxy:
-        image: jwilder/nginx-proxy
+    gateway:
+        image: nginx:1.11.9-alpine
         ports:
             - "80:80"
+            - "8080:8080"
+        links:
+            - angular-client
+            - plant-service
         volumes:
-            - /var/run/docker.sock:/tmp/docker.sock:ro
-        environment:
-            - DEFAULT_HOST=0.0.0.0
+            - ./gateway/conf.d/:/etc/nginx/conf.d/:ro
+        # command: "sh -c 'wget plant-service:3000/api/v1/plants'"
