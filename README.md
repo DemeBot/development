@@ -10,7 +10,7 @@ docker-compose -v # Developed on:  docker-compose version 1.11.0, build 6de1806
 node -v # Developed on: v7.5.0
 npm -v # Developed on: 4.1.2
 ```
-For some direction on setting up these tools refer to [[linux setup guide|Setup]]
+For some direction on setting up these tools refer to [linux setup guide](https://github.com/DemeBot/development/wiki/Setup).
 
 ## Getting started
 ```terminal
