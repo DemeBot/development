@@ -1,0 +1,50 @@
+version: '3'
+
+services:
+    plant-service:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./plant-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm run watch'"
+        ports:
+            - "3000"
+
+    angular-client:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./angular-client/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm start'"
+        ports:
+            - "4200"
+    
+    gateway:
+        image: nginx:1.11.9-alpine
+        ports:
+            - "80:80"
+            - "8080:8080"
+        links:
+            - angular-client
+            - plant-service
+            - serial-service
+        depends_on:
+            - angular-client
+            - plant-service
+            - serial-service
+        volumes:
+            - ./gateway/conf.d/:/etc/nginx/conf.d/:ro
+    
+    serial-service:
+        image: node-serialport:4.0.7-alpine
+        devices: 
+            - "${COM_NAME}:${COM_NAME}"
+        volumes:
+            - ./serial-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        environment: 
+            - "COM_NAME"
+        command: "sh -c 'COM_NAME=${COM_NAME} npm run watch'"
+        ports:
+            - "8080"
+        privileged: true
