@@ -1,0 +1,24 @@
+version: '3'
+
+services:
+    plant-service:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./plant-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm run build'"
+
+    angular-client:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./angular-client/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm run build'"
+    
+    serial-service:
+        image: node-serialport:4.0.7-alpine
+        volumes:
+            - ./serial-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm run build'"
+        privileged: true
