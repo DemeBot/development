@@ -27,6 +27,9 @@ services:
         links:
             - angular-client
             - plant-service
+        depends_on:
+            - angular-client
+            - plant-service
         volumes:
             - ./gateway/conf.d/:/etc/nginx/conf.d/:ro
         # command: "sh -c 'wget plant-service:3000/api/v1/plants'"
