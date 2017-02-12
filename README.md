@@ -16,8 +16,12 @@ For some direction on setting up these tools refer to [linux setup guide](https:
 ```terminal
 git clone https://github.com/DemeBot/development.git && cd development
 git submodule update --init
-docker-compose -f install.yml up
-docker-compose -f watch.yml up
+docker-compose -f install.docker-compose.yml up
+docker-compose -f watch.docker-compose.yml up
+```
+Running without live reload overhead:
+```bash
+docker-compose up
 ```
 *note* A `COM_NAME` environment variable is required when running the serial service.
 

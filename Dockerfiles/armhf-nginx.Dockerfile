@@ -1,6 +1,7 @@
-FROM alpine:3.4
+FROM armhf/alpine:3.4
 
-MAINTAINER NGINX Docker Maintainers "docker-maint@nginx.com"
+# Cloned from NGINX Dockerfile
+MAINTAINER Arun Kalahasti "arun.kalahasti@mavs.uta.edu"
 
 ENV NGINX_VERSION 1.11.9
 
@@ -132,4 +133,4 @@ COPY nginx.vh.default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80 443
 
-CMD ["nginx", "-s", "reload", "-g", "daemon off;"]
+CMD ["nginx", "-g", "daemon off;"]
