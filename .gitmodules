@@ -7,3 +7,6 @@
 [submodule "gateway"]
 	path = gateway
 	url = https://github.com/DemeBot/gateway.git
+[submodule "serial-service"]
+	path = serial-service
+	url = https://github.com/DemeBot/serial-service.git
