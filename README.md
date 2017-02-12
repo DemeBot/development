@@ -10,6 +10,7 @@ docker-compose -v # Developed on:  docker-compose version 1.11.0, build 6de1806
 node -v # Developed on: v7.5.0
 npm -v # Developed on: 4.1.2
 ```
+For some direction on setting up these tools refer to [[linux setup guide|Setup]]
 
 ## Getting started
 ```terminal
@@ -21,9 +22,10 @@ docker-compose up
 ```
 After a few minutes of startup time, the system elements should be available at:
 ```
-plant service : plant.YOUR_COMPUTER
-angular client : ui.YOUR_COMPUTER
+plant service : localhost:8080/plants/
+angular client : localhost/
 ```
+To run the application detached, you can run `docker-compose up -d` and connect to the output by running `docker-compose logs -f`.
 
 ### Checking for updates recursively
 ```bash
