@@ -19,6 +19,8 @@ git submodule update --init
 docker-compose -f install.yml up
 docker-compose -f watch.yml up
 ```
+*note* A `COM_NAME` environment variable is required when running the serial service.
+
 After a few minutes of startup time, the system elements should be available at:
 ```
 plant service : localhost:8080/plants/
