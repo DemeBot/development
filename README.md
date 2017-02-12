@@ -16,18 +16,17 @@ For some direction on setting up these tools refer to [linux setup guide](https:
 ```terminal
 git clone https://github.com/DemeBot/development.git && cd development
 git submodule update --init
-git submodule foreach git checkout master
-git submodule foreach npm install
-docker-compose up
+docker-compose -f install.yml up
+docker-compose -f watch.yml up
 ```
 After a few minutes of startup time, the system elements should be available at:
 ```
 plant service : localhost:8080/plants/
 angular client : localhost/
 ```
-To run the application detached, you can run `docker-compose up -d` and connect to the output by running `docker-compose logs -f`.
+To run the application detached, you can run `docker-compose -f watch.yml up -d` and connect to the output by running `docker-compose logs -f`.
 
-### Checking for updates recursively
+### Checking for status recursively
 ```bash
 git status && git submodule foreach git status
 ```
