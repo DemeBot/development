@@ -37,14 +37,15 @@ services:
     
     serial-service:
         image: node-serialport:4.0.7-alpine
+        privileged: true
+        environment: 
+            - "COM_NAME"
         devices: 
             - "${COM_NAME}:${COM_NAME}"
         volumes:
             - ./serial-service/:/usr/src/app/
         working_dir: /usr/src/app/
-        environment: 
-            - "COM_NAME"
-        command: "sh -c 'COM_NAME=${COM_NAME} npm run watch'"
         ports:
             - "8080"
-        privileged: true
+            - "8081:8080"
+        command: "sh -c 'COM_NAME=${COM_NAME} npm run watch'"
