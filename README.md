@@ -16,6 +16,7 @@ For some direction on setting up these tools refer to [linux setup guide](https:
 ```terminal
 git clone https://github.com/DemeBot/development.git && cd development
 git submodule update --init
+git submodule foreach git checkout master
 docker-compose -f install.docker-compose.yml up
 docker-compose -f watch.docker-compose.yml up
 ```
