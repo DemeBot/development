@@ -17,25 +17,32 @@ npm -v # Developed on: 4.1.2
 For some direction on setting up these tools refer to [linux setup guide](https://github.com/DemeBot/development/wiki/Setup).
 
 ## Getting started
-```terminal
+```bash
 git clone https://github.com/DemeBot/development.git && cd development
 git submodule update --init
 git submodule foreach git checkout master      # Optional, prevents detached head problems.
-docker-compose -f install.docker-compose.yml up
-docker-compose -f watch.docker-compose.yml up
+docker-compose -f install.docker-compose.yml up [SERVICE]
+docker-compose up [SERVICE]
 ```
-Running without live reload overhead:
+### Live reload
+*Increases system requirements. Do not run on the Raspberry Pi*
 ```bash
-docker-compose up
+docker-compose -f watch.docker-compose.yml up [SERVICE]
 ```
-*note* A `COM_NAME` environment variable is required when running the serial service.
+### Environment variables
+A `COM_NAME` environment variable is required when running the serial service.
+```bash
+COM_NAME=/dev/ttyACM0 docker-compose -f watch.docker-compose.yml up [SERVICE]
+```
 
 After a few minutes of startup time, the system elements should be available at:
 ```
-plant service : localhost:8080/plants/
-angular client : localhost/
+plant service : http://localhost:8080/plants/
+angular client : http://localhost/
+serial-service : ws://localhost:8080/serial/
 ```
-To run the application detached, you can run `docker-compose -f watch.yml up -d` and connect to the output by running `docker-compose logs -f`.
+To run the application detached, you can add the `-d` detach flag. ex: `docker-compose -f watch.docker-compose.yml up -d [SERVICE]`.
+To see the services output run: `docker-compose logs -f [SERVICE]`.
 
 ### Checking for status recursively
 ```bash
