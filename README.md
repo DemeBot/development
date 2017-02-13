@@ -7,8 +7,6 @@ Before you can run this application you need the following dependencies.
 git --version # Developed on: git version 2.9.3
 docker -v # Developed on: Docker version 1.13.1, build 092cba3
 docker-compose -v # Developed on:  docker-compose version 1.11.0, build 6de1806
-node -v # Developed on: v7.5.0
-npm -v # Developed on: 4.1.2
 ```
 For some direction on setting up these tools refer to [linux setup guide](https://github.com/DemeBot/development/wiki/Setup).
 
@@ -23,6 +21,12 @@ docker-compose -f watch.docker-compose.yml up
 Running without live reload overhead:
 ```bash
 docker-compose up
+```
+
+### Optional:
+```bash
+node -v # Developed on: v7.5.0
+npm -v # Developed on: 4.1.2
 ```
 *note* A `COM_NAME` environment variable is required when running the serial service.
 
