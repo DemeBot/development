@@ -21,18 +21,19 @@ For some direction on setting up these tools refer to [linux setup guide](https:
 git clone https://github.com/DemeBot/development.git && cd development
 git submodule update --init
 git submodule foreach git checkout master      # Optional, prevents detached head problems.
-docker-compose -f install.docker-compose.yml up [SERVICE]
-docker-compose up [SERVICE]
+docker-compose -f install.docker-compose.yml up
+docker-compose -f build.docker-compose.yml up
+docker-compose up
 ```
 ### Live reload
 *Increases system requirements. Do not run on the Raspberry Pi*
 ```bash
-docker-compose -f watch.docker-compose.yml up [SERVICE]
+docker-compose -f watch.docker-compose.yml up
 ```
 ### Environment variables
 A `COM_NAME` environment variable is required when running the serial service.
 ```bash
-COM_NAME=/dev/ttyACM0 docker-compose -f watch.docker-compose.yml up [SERVICE]
+COM_NAME=/dev/ttyACM0 docker-compose -f watch.docker-compose.yml up
 ```
 
 After a few minutes of startup time, the system elements should be available at:
@@ -41,8 +42,8 @@ plant service : http://localhost:8080/plants/
 angular client : http://localhost/
 serial-service : ws://localhost:8080/serial/
 ```
-To run the application detached, you can add the `-d` detach flag. ex: `docker-compose -f watch.docker-compose.yml up -d [SERVICE]`.
-To see the services output run: `docker-compose logs -f [SERVICE]`.
+To run the application detached, you can add the `-d` detach flag. ex: `docker-compose -f watch.docker-compose.yml up -d`.
+To see the services output run: `docker-compose logs -f`.
 
 ### Checking for status recursively
 ```bash
