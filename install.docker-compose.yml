@@ -16,7 +16,7 @@ services:
         command: "sh -c 'npm install'"
     
     serial-service:
-        image: node-serialport:4.0.7-alpine
+        image: arunk3001/node-serialport:4.0.7-alpine
         volumes:
             - ./serial-service/:/usr/src/app/
         working_dir: /usr/src/app/

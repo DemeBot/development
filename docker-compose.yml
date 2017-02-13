@@ -36,7 +36,7 @@ services:
             - ./gateway/conf.d/:/etc/nginx/conf.d/:ro
     
     serial-service:
-        image: node-serialport:4.0.7-alpine
+        image: arunk3001/node-serialport:4.0.7-alpine
         privileged: true
         environment: 
             - "COM_NAME"
