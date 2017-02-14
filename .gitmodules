@@ -10,3 +10,6 @@
 [submodule "serial-service"]
 	path = serial-service
 	url = https://github.com/DemeBot/serial-service.git
+[submodule "mysql"]
+	path = mysql
+	url = https://github.com/DemeBot/mysql.git

@@ -6,7 +6,7 @@ services:
         volumes:
             - ./plant-service/:/usr/src/app/
         working_dir: /usr/src/app/
-        command: "sh -c 'npm install --silent && npm run watch'"
+        command: "node .dist/server.js"
         ports:
             - "3000"
 
@@ -15,7 +15,7 @@ services:
         volumes:
             - ./angular-client/:/usr/src/app/
         working_dir: /usr/src/app/
-        command: "sh -c 'npm install --silent && npm start'"
+        command: "sh -c 'npm start'"
         ports:
             - "4200"
     
@@ -47,4 +47,4 @@ services:
         working_dir: /usr/src/app/
         ports:
             - "8080"
-        command: "sh -c 'npm install --silent && npm run watch'"
+        command: "sh -c 'COM_NAME=${COM_NAME} node .dist/server.js'"
