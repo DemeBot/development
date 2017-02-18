@@ -7,8 +7,12 @@ services:
             - ./plant-service/:/usr/src/app/
         working_dir: /usr/src/app/
         command: "sh -c 'npm run watch'"
+        links: 
+            - mysql
         ports:
             - "3000"
+        env_file: 
+            - ./plant-service/.secret.db.env
 
     angular-client:
         image: node:7.5.0-alpine
@@ -25,13 +29,13 @@ services:
             - "80:80"
             - "8080:8080"
         links:
-            - angular-client
+            # - angular-client
             - plant-service
-            - serial-service
+            # - serial-service
         depends_on:
-            - angular-client
+            # - angular-client
             - plant-service
-            - serial-service
+            # - serial-service
         volumes:
             - ./gateway/conf.d/:/etc/nginx/conf.d/:ro
     
@@ -48,3 +52,13 @@ services:
         ports:
             - "8080"
         command: "sh -c 'COM_NAME=${COM_NAME} npm run watch'"
+
+    mysql:
+        image: arunk3001/mysql:10.1.21-alpine
+        ports: 
+            - "3306:3306"
+            - "3306"
+        volumes: 
+            - ./mysql/data/:/app/
+        env_file:
+            - ./mysql/.secret.setup.env

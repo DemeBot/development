@@ -7,6 +7,8 @@ services:
             - ./plant-service/:/usr/src/app/
         working_dir: /usr/src/app/
         command: "sh -c 'npm install'"
+        env_file: 
+            - ./plant-service/.secret.db.env
 
     angular-client:
         image: node:7.5.0-alpine
@@ -22,3 +24,10 @@ services:
         working_dir: /usr/src/app/
         command: "sh -c 'npm install --build-from-source=serialport'"
         privileged: true
+
+    mysql-up:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./mysql/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm install'"

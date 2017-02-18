@@ -7,6 +7,8 @@ services:
             - ./plant-service/:/usr/src/app/
         working_dir: /usr/src/app/
         command: "sh -c 'npm run build'"
+        env_file: 
+            - ./plant-service/.secret.db.env
 
     angular-client:
         image: node:7.5.0-alpine
@@ -21,4 +23,16 @@ services:
             - ./serial-service/:/usr/src/app/
         working_dir: /usr/src/app/
         command: "sh -c 'npm run build'"
+        privileged: true
+
+    mysql-up:
+        image: node:7.5.0-alpine
+        external_links: 
+            - mysql
+        volumes:
+            - ./mysql/:/usr/src/app/
+        env_file:
+            - ./mysql/.secret.setup.env
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm run db-migrate -- up'"
         privileged: true

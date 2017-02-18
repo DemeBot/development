@@ -6,9 +6,11 @@ services:
         volumes:
             - ./plant-service/:/usr/src/app/
         working_dir: /usr/src/app/
+        links: 
+            - mysql
         command: "sh -c 'npm install --silent && npm run watch'"
-        ports:
-            - "3000"
+        env_file: 
+            - ./plant-service/.secret.db.env
 
     angular-client:
         image: node:7.5.0-alpine
@@ -45,6 +47,14 @@ services:
         volumes:
             - ./serial-service/:/usr/src/app/
         working_dir: /usr/src/app/
-        ports:
-            - "8080"
         command: "sh -c 'npm install --silent && npm run watch'"
+
+    mysql:
+        image: arunk3001/mysql:10.1.21-alpine
+        ports: 
+            - "3306:3306"
+            - "3306"
+        volumes: 
+            - ./mysql/data/:/data/
+        env_file:
+            - ./mysql/.secret.setup.env

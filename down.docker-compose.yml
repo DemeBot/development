@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+    mysql-down:
+        image: node:7.5.0-alpine
+        links: 
+            - mysql
+        volumes:
+            - ./mysql/:/usr/src/app/
+        env_file:
+            - ./mysql/.secret.setup.env
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm run db-migrate -- down'"
+        privileged: true

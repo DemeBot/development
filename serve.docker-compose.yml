@@ -5,6 +5,10 @@ services:
         image: node:7.5.0-alpine
         volumes:
             - ./plant-service/:/usr/src/app/
+        links: 
+            - mysql
+        env_file: 
+            - ./plant-service/.secret.db.envs
         working_dir: /usr/src/app/
         command: "node .dist/server.js"
         ports:
@@ -48,3 +52,13 @@ services:
         ports:
             - "8080"
         command: "sh -c 'COM_NAME=${COM_NAME} node .dist/server.js'"
+
+    mysql:
+        image: arunk3001/mysql:10.1.21-alpine
+        ports: 
+            - "3306:3306"
+            - "3306"
+        volumes: 
+            - ./mysql/data/:/data/
+        env_file:
+            - ./mysql/.secret.setup.env
