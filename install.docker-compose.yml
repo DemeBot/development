@@ -9,6 +9,15 @@ services:
         command: "sh -c 'npm install'"
         env_file: 
             - ./plant-service/.secret.db.env
+        
+    tool-service:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./tool-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm install'"
+        env_file: 
+            - ./tool-service/.secret.db.env
 
     angular-client:
         image: node:7.5.0-alpine

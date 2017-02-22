@@ -13,3 +13,6 @@
 [submodule "mysql"]
 	path = mysql
 	url = https://github.com/DemeBot/mysql.git
+[submodule "tool-service"]
+	path = tool-service
+	url = https://github.com/DemeBot/tool-service.git
