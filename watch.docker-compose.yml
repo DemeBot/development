@@ -29,13 +29,13 @@ services:
             - "80:80"
             - "8080:8080"
         links:
-            # - angular-client
+            - angular-client
             - plant-service
-            # - serial-service
+            - serial-service
         depends_on:
-            # - angular-client
+            - angular-client
             - plant-service
-            # - serial-service
+            - serial-service
         volumes:
             - ./gateway/conf.d/:/etc/nginx/conf.d/:ro
     

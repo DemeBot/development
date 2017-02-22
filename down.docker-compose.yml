@@ -3,7 +3,7 @@ version: '3'
 services:
     mysql-down:
         image: node:7.5.0-alpine
-        links: 
+        external_links: 
             - mysql
         volumes:
             - ./mysql/:/usr/src/app/
