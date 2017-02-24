@@ -5,23 +5,32 @@ services:
         image: node:7.5.0-alpine
         volumes:
             - ./plant-service/:/usr/src/app/
-        links: 
+        external_links: 
             - mysql
         env_file: 
-            - ./plant-service/.secret.db.envs
+            - ./plant-service/.secret.db.env
         working_dir: /usr/src/app/
         command: "node .dist/server.js"
-        ports:
-            - "3000"
 
-    angular-client:
+    tool-service:
         image: node:7.5.0-alpine
         volumes:
-            - ./angular-client/:/usr/src/app/
+            - ./tool-service/:/usr/src/app/
+        external_links:  
+            - mysql
+        env_file: 
+            - ./tool-service/.secret.db.env
         working_dir: /usr/src/app/
-        command: "sh -c 'npm start'"
-        ports:
-            - "4200"
+        command: "node .dist/server.js"
+
+    # angular-client:
+    #     image: node:7.5.0-alpine
+    #     volumes:
+    #         - ./angular-client/:/usr/src/app/
+    #     working_dir: /usr/src/app/
+    #     command: "sh -c 'npm start'"
+    #     ports:
+    #         - "4200"
     
     gateway:
         image: nginx:1.11.9-alpine
@@ -29,15 +38,16 @@ services:
             - "80:80"
             - "8080:8080"
         links:
-            - angular-client
+            # - angular-client
             - plant-service
             - serial-service
         depends_on:
-            - angular-client
+            # - angular-client
             - plant-service
             - serial-service
         volumes:
-            - ./gateway/conf.d/:/etc/nginx/conf.d/:ro
+            - ./angular-client/.dist/:/usr/share/nginx/html/:ro
+            - ./gateway/serve-conf.d/:/etc/nginx/conf.d/:ro
     
     serial-service:
         image: arunk3001/node-serialport:4.0.7-alpine
@@ -52,13 +62,3 @@ services:
         ports:
             - "8080"
         command: "sh -c 'COM_NAME=${COM_NAME} node .dist/server.js'"
-
-    mysql:
-        image: arunk3001/mysql:10.1.21-alpine
-        ports: 
-            - "3306:3306"
-            - "3306"
-        volumes: 
-            - ./mysql/data/:/data/
-        env_file:
-            - ./mysql/.secret.setup.env
