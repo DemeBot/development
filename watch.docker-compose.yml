@@ -7,12 +7,32 @@ services:
             - ./plant-service/:/usr/src/app/
         working_dir: /usr/src/app/
         command: "sh -c 'npm run watch'"
-        links: 
+        external_links: 
             - mysql
-        ports:
-            - "3000"
         env_file: 
             - ./plant-service/.secret.db.env
+
+    plot-service:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./plot-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm run watch'"
+        external_links: 
+            - mysql
+        env_file: 
+            - ./plot-service/.secret.db.env
+
+    tool-service:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./tool-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm run watch'"
+        external_links: 
+            - mysql
+        env_file: 
+            - ./tool-service/.secret.db.env
 
     angular-client:
         image: node:7.5.0-alpine
@@ -49,16 +69,4 @@ services:
         volumes:
             - ./serial-service/:/usr/src/app/
         working_dir: /usr/src/app/
-        ports:
-            - "8080"
         command: "sh -c 'COM_NAME=${COM_NAME} npm run watch'"
-
-    mysql:
-        image: arunk3001/mysql:10.1.21-alpine
-        ports: 
-            - "3306:3306"
-            - "3306"
-        volumes: 
-            - ./mysql/data/:/app/
-        env_file:
-            - ./mysql/.secret.setup.env

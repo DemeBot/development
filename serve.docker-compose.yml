@@ -23,6 +23,17 @@ services:
         working_dir: /usr/src/app/
         command: "node .dist/server.js"
 
+    plot-service:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./plot-service/:/usr/src/app/
+        external_links:  
+            - mysql
+        env_file: 
+            - ./plot-service/.secret.db.env
+        working_dir: /usr/src/app/
+        command: "node .dist/server.js"
+
     # angular-client:
     #     image: node:7.5.0-alpine
     #     volumes:
@@ -40,10 +51,12 @@ services:
         links:
             # - angular-client
             - plant-service
+            - plot-service
             - serial-service
         depends_on:
             # - angular-client
             - plant-service
+            - plot-service
             - serial-service
         volumes:
             - ./angular-client/.dist/:/usr/share/nginx/html/:ro

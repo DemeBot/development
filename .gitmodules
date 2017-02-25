@@ -16,3 +16,6 @@
 [submodule "tool-service"]
 	path = tool-service
 	url = https://github.com/DemeBot/tool-service.git
+[submodule "plot-service"]
+	path = plot-service
+	url = https://github.com/DemeBot/plot-service.git

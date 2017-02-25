@@ -19,6 +19,15 @@ services:
         env_file: 
             - ./tool-service/.secret.db.env
 
+    plot-service:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./plot-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        command: "sh -c 'npm run build'"
+        env_file: 
+            - ./plot-service/.secret.db.env
+
     angular-client:
         image: node:7.5.0-alpine
         volumes:
