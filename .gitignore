@@ -1,0 +1,8 @@
+# dotsecret files
+.secret.*
+
+# Folders which begin with a dot
+.*/
+
+# ignore vscode config
+.vscode
