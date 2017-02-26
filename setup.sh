@@ -84,8 +84,8 @@ then
     echo "INFO: Running migration up"
     # Update submodules
     docker-compose -f ./compose-files/docker-compose.yml up -d mysql
-    echo "waiting 10 seconds for mysql to boot up"
-    sleep 10
+    echo "waiting 20 seconds for mysql to boot up"
+    sleep 20
     docker-compose -f ./compose-files/migration.docker-compose.yml up mysql-up
 elif [[ "$response" =~ ^(d)$ ]];
 then
