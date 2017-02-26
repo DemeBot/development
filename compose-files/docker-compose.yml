@@ -4,29 +4,40 @@ services:
     plant-service:
         image: node:7.5.0-alpine
         volumes:
-            - ./plant-service/:/usr/src/app/
+            - ./../plant-service/:/usr/src/app/
         working_dir: /usr/src/app/
         links: 
             - mysql
         command: "sh -c 'npm install --silent && npm run watch'"
         env_file: 
-            - ./plant-service/.secret.db.env
+            - ./../plant-service/.secret.db.env
+
+    plot-service:
+        image: node:7.5.0-alpine
+        volumes:
+            - ./../plot-service/:/usr/src/app/
+        working_dir: /usr/src/app/
+        links: 
+            - mysql
+        command: "sh -c 'npm install --silent && npm run watch'"
+        env_file: 
+            - ./../plot-service/.secret.db.env
 
     tool-service:
         image: node:7.5.0-alpine
         volumes:
-            - ./tool-service/:/usr/src/app/
+            - ./../tool-service/:/usr/src/app/
         working_dir: /usr/src/app/
         links: 
             - mysql
         command: "sh -c 'npm install --silent && npm run watch'"
         env_file: 
-            - ./tool-service/.secret.db.env
+            - ./../tool-service/.secret.db.env
 
     angular-client:
-        image: node:7.5.0-alpine
+        image: arunk3001/node-serialport:4.0.7-alpine
         volumes:
-            - ./angular-client/:/usr/src/app/
+            - ./../angular-client/:/usr/src/app/
         working_dir: /usr/src/app/
         command: "sh -c 'npm install --silent && npm start'"
         ports:
@@ -48,7 +59,7 @@ services:
             - tool-service
             - serial-service
         volumes:
-            - ./gateway/conf.d/:/etc/nginx/conf.d/:ro
+            - ./../gateway/conf.d/:/etc/nginx/conf.d/:ro
     
     serial-service:
         image: arunk3001/node-serialport:4.0.7-alpine
@@ -58,7 +69,7 @@ services:
         devices: 
             - "${COM_NAME}:${COM_NAME}"
         volumes:
-            - ./serial-service/:/usr/src/app/
+            - ./../serial-service/:/usr/src/app/
         working_dir: /usr/src/app/
         command: "sh -c 'npm install --silent && npm run watch'"
 
@@ -68,6 +79,6 @@ services:
             - "3306:3306"
             - "3306"
         volumes: 
-            - ./mysql/data/:/data/
+            - ./../mysql/data/:/data/
         env_file:
-            - ./mysql/.secret.setup.env
+            - ./../mysql/.secret.setup.env

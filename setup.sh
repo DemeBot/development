@@ -9,6 +9,7 @@ then
 else
     first_run=true
     chmod -R +x ./scripts/
+    chmod +x ./run.sh
     # Run dotenv setup script in current directory.
     ./scripts/setup-env.sh
 fi
@@ -25,7 +26,7 @@ then
 fi
 
 # --------------------------------------------------------
-read -n 1 -r -p "Update submodules? [y/N] " response
+read -n 1 -r -p "Update submodules? [(Y)es/(N)o] " response
 echo ""
 response=${response,,}    # tolower
 if [[ "$response" =~ ^(y)$ ]];
@@ -38,7 +39,7 @@ else
 fi
 
 # --------------------------------------------------------
-read -n 1 -r -p "Fetch docker images? [y/N] " response
+read -n 1 -r -p "Fetch docker images? [(Y)es/(N)o] " response
 echo ""
 response=${response,,}    # tolower
 if [[ "$response" =~ ^(y)$ ]];
@@ -50,7 +51,7 @@ else
 fi
 
 # --------------------------------------------------------
-read -n 1 -r -p "Check submodules for mising dotenv files? [y/N] " response
+read -n 1 -r -p "Check submodules for mising dotenv files? [(Y)es/(N)o] " response
 echo ""
 response=${response,,}    # tolower
 if [[ "$response" =~ ^(y)$ ]];
@@ -62,35 +63,35 @@ else
 fi
 
 # --------------------------------------------------------
-read -n 1 -r -p "Run install scripts? [y/N] " response
+read -n 1 -r -p "Run install scripts? [(Y)es/(N)o] " response
 echo ""
 response=${response,,}    # tolower
 if [[ "$response" =~ ^(y)$ ]];
 then
     echo "INFO: Running dockerized install scripts"
     # Update submodules
-    docker-compose -f install.docker-compose.yml up
+    docker-compose -f ./compose-files/install.docker-compose.yml up
 else
     echo "INFO: Skipping dockerized install scripts"
 fi
 
 # --------------------------------------------------------
-read -n 1 -r -p "Run migration scripts? [u/d/n] " response
+read -n 1 -r -p "Run migration scripts? [(U)p/(D)own/(N)o] " response
 echo ""
 response=${response,,}    # tolower
 if [[ "$response" =~ ^(u)$ ]];
 then
     echo "INFO: Running migration up"
     # Update submodules
-    docker-compose -f docker-compose.yml up -d mysql
+    docker-compose -f ./compose-files/docker-compose.yml up -d mysql
     echo "waiting 10 seconds for mysql to boot up"
     sleep 10
-    docker-compose -f migration.docker-compose.yml up mysql-up
+    docker-compose -f ./compose-files/migration.docker-compose.yml up mysql-up
 elif [[ "$response" =~ ^(d)$ ]];
 then
     echo "INFO: Running migration down"
     # Update submodules
-    docker-compose -f migration.docker-compose.yml up mysql-down
+    docker-compose -f ./compose-files/migration.docker-compose.yml up mysql-down
 else
     echo "INFO: Skipping dockerized install scripts"
 fi

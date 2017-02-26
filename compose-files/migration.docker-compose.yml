@@ -6,9 +6,9 @@ services:
         external_links: 
             - mysql
         volumes:
-            - ./mysql/:/usr/src/app/
+            - ./../mysql/:/usr/src/app/
         env_file:
-            - ./mysql/.secret.setup.env
+            - ./../mysql/.secret.setup.env
         working_dir: /usr/src/app/
         command: "sh -c 'npm run db-migrate -- down'"
     
@@ -17,8 +17,8 @@ services:
         external_links: 
             - mysql
         volumes:
-            - ./mysql/:/usr/src/app/
+            - ./../mysql/:/usr/src/app/
         env_file:
-            - ./mysql/.secret.setup.env
+            - ./../mysql/.secret.setup.env
         working_dir: /usr/src/app/
         command: "sh -c 'npm run db-migrate -- up'"

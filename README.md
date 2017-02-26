@@ -19,9 +19,7 @@ For some direction on setting up these tools refer to [linux setup guide](https:
 ## Getting started
 ```bash
 git clone https://github.com/DemeBot/development.git && cd development
-git submodule update --init
-git submodule foreach git checkout master      # Optional, prevents detached head problems.
-docker-compose -f install.docker-compose.yml up
+chmod +x setup.sh && ./setup.sh
 docker-compose -f build.docker-compose.yml up
 docker-compose up
 ```

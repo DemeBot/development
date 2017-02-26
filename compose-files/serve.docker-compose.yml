@@ -4,44 +4,35 @@ services:
     plant-service:
         image: node:7.5.0-alpine
         volumes:
-            - ./plant-service/:/usr/src/app/
+            - ./../plant-service/:/usr/src/app/
         external_links: 
             - mysql
         env_file: 
-            - ./plant-service/.secret.db.env
+            - ./../plant-service/.secret.db.env
         working_dir: /usr/src/app/
         command: "node .dist/server.js"
 
     tool-service:
         image: node:7.5.0-alpine
         volumes:
-            - ./tool-service/:/usr/src/app/
+            - ./../tool-service/:/usr/src/app/
         external_links:  
             - mysql
         env_file: 
-            - ./tool-service/.secret.db.env
+            - ./../tool-service/.secret.db.env
         working_dir: /usr/src/app/
         command: "node .dist/server.js"
 
     plot-service:
         image: node:7.5.0-alpine
         volumes:
-            - ./plot-service/:/usr/src/app/
+            - ./../plot-service/:/usr/src/app/
         external_links:  
             - mysql
         env_file: 
-            - ./plot-service/.secret.db.env
+            - ./../plot-service/.secret.db.env
         working_dir: /usr/src/app/
         command: "node .dist/server.js"
-
-    # angular-client:
-    #     image: node:7.5.0-alpine
-    #     volumes:
-    #         - ./angular-client/:/usr/src/app/
-    #     working_dir: /usr/src/app/
-    #     command: "sh -c 'npm start'"
-    #     ports:
-    #         - "4200"
     
     gateway:
         image: nginx:1.11.9-alpine
@@ -49,18 +40,16 @@ services:
             - "80:80"
             - "8080:8080"
         links:
-            # - angular-client
             - plant-service
             - plot-service
             - serial-service
         depends_on:
-            # - angular-client
             - plant-service
             - plot-service
             - serial-service
         volumes:
-            - ./angular-client/.dist/:/usr/share/nginx/html/:ro
-            - ./gateway/serve-conf.d/:/etc/nginx/conf.d/:ro
+            - ./../angular-client/.dist/:/usr/share/nginx/html/:ro
+            - ./../gateway/serve-conf.d/:/etc/nginx/conf.d/:ro
     
     serial-service:
         image: arunk3001/node-serialport:4.0.7-alpine
@@ -70,7 +59,7 @@ services:
         devices: 
             - "${COM_NAME}:${COM_NAME}"
         volumes:
-            - ./serial-service/:/usr/src/app/
+            - ./../serial-service/:/usr/src/app/
         working_dir: /usr/src/app/
         ports:
             - "8080"
