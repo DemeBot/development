@@ -19,7 +19,7 @@ git submodule update --init
 
 # If first run, subodules will be in detached head state.
 # Resolve by forcing all submoudules to checkout the master branch.
-if [[ first_run = true ]];
+if [[ $first_run = true ]];
 then
     git submodule foreach git checkout master
     echo "INFO: Detected a first run. Submodules are all checked out in their master branch."
@@ -94,6 +94,18 @@ then
     docker-compose -f ./compose-files/migration.docker-compose.yml up mysql-down
 else
     echo "INFO: Skipping dockerized install scripts"
+fi
+
+# --------------------------------------------------------
+read -n 1 -r -p "Run launch script? [(Y)es/(N)o] " response
+echo ""
+response=${response,,}    # tolower
+if [[ "$response" =~ ^(y)$ ]];
+then
+    echo "INFO: Running main launch script"
+    ./run.sh
+else
+    echo "INFO: Not running main launch script"
 fi
 
 

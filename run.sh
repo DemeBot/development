@@ -26,7 +26,7 @@ elif [[ "$response" =~ ^(w)$ ]];
 then
     echo "INFO: Running dockerized watch scripts"
     # Update submodules
-    docker-compose -f ./compose-files/watch.docker-compose.yml up
+    COM_NAME=$COM_NAME docker-compose -f ./compose-files/watch.docker-compose.yml up
 else
     echo "INFO: Skipping dockerized run scripts"
 fi
