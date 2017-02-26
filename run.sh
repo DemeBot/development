@@ -15,6 +15,7 @@ then
     # Update submodules
     docker-compose -f ./compose-files/build.docker-compose.yml up
     COM_NAME=$COM_NAME docker-compose -f ./compose-files/serve.docker-compose.yml up
+    docker-compose -f ./compose-files/docker-compose.yml down
 elif [[ "$response" =~ ^(d)$ ]];
 then
     echo "INFO: Running dockerized build scripts detached"
@@ -22,6 +23,7 @@ then
     docker-compose -f ./compose-files/build.docker-compose.yml up
     COM_NAME=$COM_NAME docker-compose -f ./compose-files/serve.docker-compose.yml up -d
     docker-compose -f ./compose-files/serve.docker-compose.yml logs -f
+    docker-compose -f ./compose-files/docker-compose.yml down
 elif [[ "$response" =~ ^(w)$ ]];
 then
     echo "INFO: Running dockerized watch scripts"
