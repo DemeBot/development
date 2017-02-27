@@ -41,7 +41,7 @@ services:
         working_dir: /usr/src/app/
         command: "sh -c 'npm start'"
         ports:
-            - "4200"
+            - "4200:4200"
     
     gateway:
         image: nginx:1.11.9-alpine
