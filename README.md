@@ -20,19 +20,14 @@ For some direction on setting up these tools refer to [linux setup guide](https:
 ```bash
 git clone https://github.com/DemeBot/development.git && cd development
 chmod +x setup.sh && ./setup.sh
-docker-compose -f build.docker-compose.yml up
-docker-compose up
 ```
-### Live reload
-*Increases system requirements. Do not run on the Raspberry Pi*
+Follow the setup process to run the application.
+
+To run the application again, run:
 ```bash
-docker-compose -f watch.docker-compose.yml up
+./run.sh
 ```
-### Environment variables
-A `COM_NAME` environment variable is required when running the serial service.
-```bash
-COM_NAME=/dev/ttyACM0 docker-compose -f watch.docker-compose.yml up
-```
+
 
 After a few minutes of startup time, the system elements should be available at:
 ```
