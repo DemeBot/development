@@ -15,7 +15,7 @@ else
 fi
 
 # initialize and update any submodules
-git submodule update --init
+# git submodule update --init
 
 # If first run, subodules will be in detached head state.
 # Resolve by forcing all submoudules to checkout the master branch.
