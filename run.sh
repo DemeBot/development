@@ -17,9 +17,11 @@ fi
 
 response=${response,,}    # tolower
 
-# Startup mysql image
+# Startup MySQL image
 
+echo "INFO: Booting up MySQL server"
 docker-compose -f ./compose-files/docker-compose.yml up -d mysql
+echo "INFO: Waiting for MySQL container to boot"
 
 if [[ "$response" =~ ^(b)$ ]];
 # Build and serve
@@ -55,3 +57,5 @@ then
 else
     echo "INFO: Unknown command input. Skipping dockerized run scripts"
 fi
+
+echo "SCRIPT COMPLETE"
